@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<w:project xmlns:w="http://maven.apache.org/POM/4.0.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <w:modelVersion>4.0.0</w:modelVersion>
+
+    <w:groupId>Cherchok</w:groupId>
+    <w:artifactId>cherch</w:artifactId>
+    <w:version>1.0-SNAPSHOT</w:version>
+
+
+    <w:properties>
+        <w:project.build.sourceEncoding>UTF-8</w:project.build.sourceEncoding>
+        <w:project.reporting.outputEncoding>UTF-8</w:project.reporting.outputEncoding>
+        <w:java.version>9</w:java.version>
+    </w:properties>
+
+    <w:dependencies>
+
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <w:dependency>
+            <w:groupId>mysql</w:groupId>
+            <w:artifactId>mysql-connector-java</w:artifactId>
+            <w:version>5.1.6</w:version>
+        </w:dependency>
+
+
+        <!-- COMMON LIBS (Log4J2 & Vavr) -->
+        <w:dependency>
+            <w:groupId>org.apache.logging.log4j</w:groupId>
+            <w:artifactId>log4j-slf4j-impl</w:artifactId>
+            <w:version>LATEST</w:version>
+            <w:optional>true</w:optional>
+        </w:dependency>
+
+        <!-- TEST (JUnit 5 & Mockito) -->
+        <w:dependency>
+            <w:groupId>org.junit.jupiter</w:groupId>
+            <w:artifactId>junit-jupiter-params</w:artifactId>
+            <w:version>LATEST</w:version>
+            <w:scope>test</w:scope>
+        </w:dependency>
+        <w:dependency>
+            <w:groupId>org.hamcrest</w:groupId>
+            <w:artifactId>java-hamcrest</w:artifactId>
+            <w:version>LATEST</w:version>
+            <w:scope>test</w:scope>
+        </w:dependency>
+        <w:dependency>
+            <w:groupId>org.mockito</w:groupId>
+            <w:artifactId>mockito-all</w:artifactId>
+            <w:version>LATEST</w:version>
+            <w:scope>test</w:scope>
+        </w:dependency>
+        <w:dependency>
+            <w:groupId>junit</w:groupId>
+            <w:artifactId>junit</w:artifactId>
+            <w:version>LATEST</w:version>
+            <w:scope>test</w:scope>
+        </w:dependency>
+        <w:dependency><!-- Only required to run tests in an IDE that bundles an older version -->
+            <w:groupId>org.junit.platform</w:groupId>
+            <w:artifactId>junit-platform-launcher</w:artifactId>
+            <w:version>LATEST</w:version>
+            <w:scope>test</w:scope>
+        </w:dependency>
+        <w:dependency><!-- Only required to run tests in an IDE that bundles an older version -->
+            <w:groupId>org.junit.jupiter</w:groupId>
+            <w:artifactId>junit-jupiter-engine</w:artifactId>
+            <w:version>LATEST</w:version>
+            <w:scope>test</w:scope>
+        </w:dependency>
+        <w:dependency><!-- Only required to run tests in an IDE that bundles an older version -->
+            <w:groupId>org.junit.vintage</w:groupId>
+            <w:artifactId>junit-vintage-engine</w:artifactId>
+            <w:version>LATEST</w:version>
+            <w:scope>test</w:scope>
+        </w:dependency>
+
+    </w:dependencies>
+
+    <w:build>
+        <w:plugins>
+            <!-- COMPILER (Java9+ and lombok compatible) -->
+            <w:plugin>
+                <w:groupId>org.apache.maven.plugins</w:groupId>
+                <w:artifactId>maven-compiler-plugin</w:artifactId>
+                <w:version>3.7.0</w:version>
+                <w:configuration>
+                    <w:source>${java.version}</w:source>
+                    <w:target>${java.version}</w:target>
+                    <w:compilerArgs>
+                        <w:arg>-parameters</w:arg>
+                        <!--<arg>&#45;&#45;add-modules=java.xml.ws.annotation</arg>-->
+                        <!--<arg>&#45;&#45;permit-illegal-access</arg>-->
+                        <w:arg>-J--add-opens</w:arg>
+                        <w:arg>-Jjdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED</w:arg>
+                        <w:arg>-J--add-opens</w:arg>
+                        <w:arg>-Jjdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED</w:arg>
+                        <w:arg>-J--add-opens</w:arg>
+                        <w:arg>-Jjdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED</w:arg>
+                        <w:arg>-J--add-opens</w:arg>
+                        <w:arg>-Jjdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED</w:arg>
+                        <w:arg>-J--add-opens</w:arg>
+                        <w:arg>-Jjdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED</w:arg>
+                        <w:arg>-J--add-opens</w:arg>
+                        <w:arg>-Jjdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED</w:arg>
+                        <w:arg>-J--add-opens</w:arg>
+                        <w:arg>-Jjdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED</w:arg>
+                        <w:arg>-J--add-opens</w:arg>
+                        <w:arg>-Jjdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED</w:arg>
+                        <w:arg>-J--add-opens</w:arg>
+                        <w:arg>-Jjdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED</w:arg>
+                    </w:compilerArgs>
+                </w:configuration>
+            </w:plugin>
+
+
+        </w:plugins>
+    </w:build>
+</w:project>
