@@ -3,6 +3,9 @@ package privateLessions.teacher;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class A implements Runnable {
@@ -10,14 +13,16 @@ public class A implements Runnable {
     // создать несколоько потоков schedule thread pool await on condition countdown latch
 
     private static volatile boolean goToSleep;
+    private static volatile CountDownLatch latch;
 
     @Override
     public void run() {
         try {
             int idx = 0;
             while (!Thread.currentThread().isInterrupted()) {
-                if (goToSleep) {
-                    TimeUnit.SECONDS.sleep(5);
+                if (latch != null) {
+                    latch.await();
+//                    TimeUnit.SECONDS.sleep(5);
                     goToSleep = false;
                 }
                 int fib = fib(idx);
@@ -25,7 +30,7 @@ public class A implements Runnable {
                 TimeUnit.SECONDS.sleep(1);
             }
         } catch (InterruptedException e) {
-            System.err.printf("Thread %s was interrupted",  Thread.currentThread().getName());
+            System.err.printf("Thread %s was interrupted", Thread.currentThread().getName());
         }
     }
 
@@ -40,6 +45,9 @@ public class A implements Runnable {
         Thread t1 = new Thread(new A());
         t1.start();
 
+        ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
+
+
         try (BufferedReader in = new BufferedReader(new InputStreamReader(System.in))) {
             String line;
             while ((line = in.readLine()) != null) {
@@ -51,7 +59,9 @@ public class A implements Runnable {
                         break;
                     case "s":
                         System.err.println("Go to sleep!");
-                        goToSleep = true;
+//                        goToSleep = true;
+                        latch = new CountDownLatch(1);
+                        ses.schedule(() -> latch.countDown(), 5, TimeUnit.SECONDS);
                         break;
                     case "e": {
                         System.err.printf("Exiting thread %s", t1.getName());

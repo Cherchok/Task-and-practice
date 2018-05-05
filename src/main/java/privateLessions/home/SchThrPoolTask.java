@@ -1,9 +1,7 @@
 package privateLessions.home;
 
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.List;
+import java.util.concurrent.*;
 
 public class SchThrPoolTask {
 
@@ -13,13 +11,19 @@ public class SchThrPoolTask {
         CountDownLatch cdl1 = new CountDownLatch(8);
 
 
-        Thread t1 = new CDLThread(cdl1);
+        ses.scheduleWithFixedDelay(new CDLThread(cdl1), 1, 1, TimeUnit.SECONDS);
 
-        ses.scheduleWithFixedDelay(t1, 1, 1, TimeUnit.SECONDS);
 
+        ses.scheduleAtFixedRate(() -> {
+            System.out.println(Thread.currentThread().getName() + "  secondary task " + cdl1.getCount());
+            cdl1.countDown();
+        }, 2000, 1000, TimeUnit.MILLISECONDS);
+
+        cdl1.await();
+
+        List<Runnable> runnables = ses.shutdownNow();
         ses.awaitTermination(5, TimeUnit.SECONDS);
 
-        ses.shutdown();
         System.out.println("End!");
 
     }
