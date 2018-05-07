@@ -10,7 +10,8 @@ import java.util.concurrent.TimeUnit;
 
 public class A implements Runnable {
 
-    // создать несколоько потоков schedule thread pool await on condition countdown latch
+    // hw1: создать несколоько потоков schedule thread pool await on condition countdown latch
+    // hw2: cyclicBarrier condition Delayed Queue та же задача на этих классах.
 
     private static volatile boolean goToSleep;
     private static volatile CountDownLatch latch;
