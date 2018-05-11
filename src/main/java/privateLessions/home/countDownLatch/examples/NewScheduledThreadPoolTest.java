@@ -1,4 +1,4 @@
-package privateLessions.home.examples;
+package privateLessions.home.countDownLatch.examples;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;

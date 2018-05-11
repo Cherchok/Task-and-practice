@@ -1,9 +1,9 @@
-package privateLessions.home;
+package privateLessions.home.countDownLatch.examples;
+
+
 
 import java.util.List;
 import java.util.concurrent.*;
-import java.util.concurrent.locks.Condition;
-
 
 
 public class SchThrPoolTask {

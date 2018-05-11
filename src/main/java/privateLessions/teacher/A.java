@@ -13,7 +13,6 @@ public class A implements Runnable {
     // hw1: создать несколоько потоков schedule thread pool await on condition countdown latch
     // hw2: cyclicBarrier condition Delayed Queue та же задача на этих классах.
 
-    private static volatile boolean goToSleep;
     private static volatile CountDownLatch latch;
 
     @Override
@@ -23,8 +22,6 @@ public class A implements Runnable {
             while (!Thread.currentThread().isInterrupted()) {
                 if (latch != null) {
                     latch.await();
-//                    TimeUnit.SECONDS.sleep(5);
-                    goToSleep = false;
                 }
                 int fib = fib(idx);
                 System.err.printf("hello {%s} fib[%d] = %d\n", Thread.currentThread().getName(), idx++, fib);
